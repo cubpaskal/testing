@@ -129,58 +129,62 @@ async function apiGet(path) {
   return res.json();
 }
 
-// --- MODERN STYLES (2025 vibe) ---
+// --- MODERN STYLES (Spotify-like consent + app 2025) ---
 const css = `
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-:root {
-  --bg: #0f0f10;
-  --panel: #151516;
-  --text: #ffffff;
-  --muted: #a1a1aa;
-  --line: #262629;
-  --brand: #1DB954;
-  --brand-2: #169c46;
+:root{
+  --bg:#0F1112;--panel:#121314;--text:#fff;--muted:#C7C7CB;--line:#2A2D31;
+  --brand:#1ED760;--brand-2:#1db954;
 }
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial; }
-.container { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+.container{max-width:1120px;margin:0 auto;padding:0 20px}
 
-.header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px); background: linear-gradient(180deg, rgba(15,15,16,0.9), rgba(15,15,16,0.7)); border-bottom: 1px solid var(--line); }
-.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
-.brand { display: flex; align-items: center; gap: 10px; }
-.brand-title { font-weight: 700; letter-spacing: 0.2px; }
-.btn { border: 0; background: var(--brand); color: #0f0f10; padding: 10px 16px; border-radius: 999px; font-weight: 700; cursor: pointer; transition: transform .08s ease, background .2s ease; }
-.btn:hover { background: var(--brand-2); }
-.btn:active { transform: translateY(1px); }
-.btn-secondary { background: #232326; color: var(--text); }
-.btn-secondary:hover { background: #2b2b30; }
-.avatar { width: 32px; height: 32px; border-radius: 50%; background: #2b2b2e; object-fit: cover; }
+.header{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(16,17,18,.9),rgba(16,17,18,.75));border-bottom:1px solid var(--line)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-title{font-weight:700;letter-spacing:.2px}
+.btn{border:0;background:var(--brand);color:#0f1112;padding:12px 18px;border-radius:999px;font-weight:700;cursor:pointer;transition:transform .08s,filter .15s}
+.btn:hover{filter:brightness(.95)}
+.btn:active{transform:translateY(1px)}
+.btn-secondary{background:#26292C;color:var(--text)}
+.btn-secondary:hover{background:#2E3236}
+.avatar{width:32px;height:32px;border-radius:50%;background:#2b2b2e;object-fit:cover}
 
-.hero { text-align: center; padding: 72px 0 24px; }
-.hero h1 { font-size: 40px; margin: 0 0 10px; letter-spacing: -0.3px; }
-.hero p { color: var(--muted); margin: 0 auto; max-width: 540px; }
+/* consent card */
+.consent-wrap{min-height:calc(100vh - 64px);display:grid;place-items:center;padding:32px 16px}
+.consent{width:560px;max-width:100%;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px 24px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.consent h1{margin:0 0 16px;font-size:28px;font-weight:700;letter-spacing:.1px}
+.appname{color:var(--brand);font-size:32px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
+.userline{color:var(--muted);margin:2px 0 18px}
+.linkish{color:#a3e3b7;text-decoration:underline;cursor:pointer}
+.permissions h3{margin:18px 0 8px;font-size:18px}
+.perm{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 0}
+.perm-title{font-weight:600}
+.perm-desc{color:var(--muted);font-size:14px;margin-top:4px}
+.consent-actions{display:grid;gap:12px;margin-top:24px}
+.consent-primary{height:48px;border-radius:999px;font-size:16px}
+.consent-secondary{text-align:center;color:var(--muted);font-weight:600}
+.smallprint{margin-top:16px;color:var(--muted);font-size:12px;line-height:1.5}
 
-.grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 10px; }
-@media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-.card { display: flex; align-items: center; gap: 14px; padding: 12px; border-radius: 14px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--line); transition: transform .15s ease, background .2s ease, border-color .2s ease; }
-.card:hover { transform: translateY(-2px); background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border-color: #2f2f33; }
-.card .idx { width: 24px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
-.cover { width: 68px; height: 68px; border-radius: 10px; object-fit: cover; background: #1b1b1e; }
-.title { font-weight: 600; letter-spacing: .1px; }
-.meta { color: var(--muted); font-size: 14px; margin-top: 2px; }
-.dur { color: var(--muted); font-size: 13px; margin-left: auto; margin-right: 10px; }
-.preview { height: 34px; }
+/* top cards */
+.grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:10px}
+@media (min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+.card{display:flex;align-items:center;gap:14px;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px solid var(--line);transition:transform .15s,background .2s,border-color .2s}
+.card:hover{transform:translateY(-2px);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border-color:#2f2f33}
+.card .idx{width:24px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.cover{width:68px;height:68px;border-radius:10px;object-fit:cover;background:#1b1b1e}
+.title{font-weight:600;letter-spacing:.1px}
+.meta{color:var(--muted);font-size:14px;margin-top:2px}
+.dur{color:var(--muted);font-size:13px;margin-left:auto;margin-right:10px}
+.preview{height:34px}
 
-.kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background: #202023; color: #d4d4d8; border: 1px solid #2b2b30; border-bottom-width: 3px; border-radius: 10px; padding: 12px 14px; display: inline-flex; align-items: center; gap: 10px; }
-.kbd b { color: #fff; }
-
-.footer { text-align: center; color: var(--muted); font-size: 12px; padding: 36px 0 60px; }
-
-.skeleton { position: relative; overflow: hidden; background: #1a1a1d; border: 1px solid var(--line); border-radius: 14px; height: 92px; }
-.skeleton::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.02) 100%); transform: translateX(-100%); animation: shine 1.2s infinite; }
-@keyframes shine { to { transform: translateX(100%); } }
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:36px 0 60px}
+.skeleton{position:relative;overflow:hidden;background:#1a1a1d;border:1px solid var(--line);border-radius:14px;height:92px}
+.skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.07) 50%,rgba(255,255,255,.02) 100%);transform:translateX(-100%);animation:shine 1.2s infinite}
+@keyframes shine{to{transform:translateX(100%)}}
 `;
 
 // --- UI ---
@@ -293,120 +297,97 @@ export default function App() {
 
       <main className="container">
         {!profile && (
-          <section className="hero">
-            <h1>Откройте свой звук 30‑дневки</h1>
-            <p>Войдите через Spotify, чтобы увидеть ваши 10 самых прослушиваемых треков за последний месяц. Безопасная авторизация через PKCE, без хранения пароля.</p>
-            <div style={{ marginTop: 22 }}>
-              <button onClick={login} className="btn">Войти со Spotify</button>
-            </div>
-            <div style={{ marginTop: 14 }}>
-              <span className="kbd">Скоп: <b>user-top-read</b></span>
+          <section className="consent-wrap">
+            <div className="consent">
+              <h1>Разрешите Spotify подключиться к приложению:</h1>
+              <div className="appname">tettr</div>
+              <div className="userline">Владимир · <span className="linkish">Это не вы?</span></div>
+
+              <div className="permissions">
+                <div className="perm">
+                  <div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="12" r="10" opacity=".2"/><circle cx="12" cy="12" r="3"/><path d="M22 12c-2.5-3.5-6.1-6-10-6S4.5 8.5 2 12c2.5 3.5 6.1 6 10 6s7.5-2.5 10-6Z"/></svg>
+                  </div>
+                  <div>
+                    <div className="perm-title">Просматривать данные вашего аккаунта Spotify</div>
+                    <div className="perm-desc">Ваше имя, имя пользователя, изображение профиля, подписчиков и открытые плейлисты.</div>
+                  </div>
+                </div>
+
+                <div className="perm">
+                  <div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 3h10v3H7z"/></svg>
+                  </div>
+                  <div>
+                    <div className="perm-title">Просматривать ваши действия в Spotify</div>
+                    <div className="perm-desc">Ваш топ исполнителей и контент, который вы слушаете чаще всего.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="consent-actions">
+                <button onClick={login} className="btn consent-primary">Принимаю</button>
+                <div className="consent-secondary">Отмена</div>
+              </div>
+
+              <div className="smallprint">
+                Вы всегда можете отменить доступ в настройках аккаунта. Чтобы узнать больше о том, как это приложение использует личные данные, ознакомьтесь с его политикой конфиденциальности.
+              </div>
             </div>
           </section>
         )}
 
-{!profile && (
-  <section className="consent-wrap">
-    <div className="consent">
-      <h1>Разрешите Spotify подключиться к приложению:</h1>
-      <div className="appname">tettr</div>
-      <div className="userline">Владимир · <span className="linkish">Это не вы?</span></div>
+        {profile && (
+          <section style={{ padding: "28px 0" }}>
+            <h2 style={{ margin: "0 0 18px", letterSpacing: ".2px" }}>Топ‑10 треков · последний месяц</h2>
+            {error && (
+              <div style={{ marginBottom: 14, color: "#ff7a7a" }}>{String(error)}</div>
+            )}
 
-      <div className="permissions">
-        <div className="perm">
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-              <circle cx="12" cy="12" r="10" opacity=".2"/>
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M22 12c-2.5-3.5-6.1-6-10-6S4.5 8.5 2 12c2.5 3.5 6.1 6 10 6s7.5-2.5 10-6Z"/>
-            </svg>
-          </div>
-          <div>
-            <div className="perm-title">Просматривать данные вашего аккаунта Spotify</div>
-            <div className="perm-desc">Ваше имя, имя пользователя, изображение профиля, подписчиков и открытые плейлисты.</div>
-          </div>
-        </div>
+            {loading ? (
+              <div className="grid">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <div className="skeleton" key={i} />
+                ))}
+              </div>
+            ) : (
+              <div className="grid">
+                {tracks.map((t, idx) => (
+                  <article key={t.id || idx} className="card">
+                    <div className="idx">{String(idx + 1).padStart(2, "0")}</div>
+                    <img
+                      className="cover"
+                      src={t.album?.images?.[1]?.url || t.album?.images?.[0]?.url}
+                      alt={t.name}
+                      width={68}
+                      height={68}
+                      loading="lazy"
+                    />
+                    <div style={{ minWidth: 0 }}>
+                      <div className="title" title={t.name}>{t.name}</div>
+                      <div className="meta" title={t.artists?.map(a=>a.name).join(", ")}>{t.artists?.map(a => a.name).join(", ")}</div>
+                    </div>
+                    <div className="dur">{msToMinSec(t.duration_ms)}</div>
+                    {t.preview_url ? (
+                      <audio className="preview" controls src={t.preview_url} />
+                    ) : (
+                      <span className="meta">без предпрослушивания</span>
+                    )}
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+      </main>
 
-        <div className="perm">
-          <div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-              <rect x="3" y="6" width="18" height="14" rx="2"/>
-              <path d="M3 10h18"/>
-              <path d="M7 3h10v3H7z"/>
-            </svg>
-          </div>
-          <div>
-            <div className="perm-title">Просматривать ваши действия в Spotify</div>
-            <div className="perm-desc">Ваш топ исполнителей и контент, который вы слушаете чаще всего.</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="consent-actions">
-        <button onClick={login} className="btn consent-primary">Принимаю</button>
-        <div className="consent-secondary">Отмена</div>
-      </div>
-
-      <div className="smallprint">
-        Вы всегда можете отменить доступ в настройках аккаунта. Чтобы узнать больше о том, как это приложение использует личные данные, ознакомьтесь с его политикой конфиденциальности.
-      </div>
-    </div>
-  </section>
-)}
-
-const css = `
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-:root{
-  --bg:#0F1112;--panel:#121314;--text:#fff;--muted:#C7C7CB;--line:#2A2D31;
-  --brand:#1ED760;--brand-2:#1db954;
+      <footer className="footer">Неофициальное приложение. Стиль вдохновлён Spotify · © {new Date().getFullYear()}</footer>
+    </>
+  );
 }
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
-.container{max-width:1120px;margin:0 auto;padding:0 20px}
 
-.header{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(16,17,18,.9),rgba(16,17,18,.75));border-bottom:1px solid var(--line)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
-.brand{display:flex;align-items:center;gap:10px}
-.brand-title{font-weight:700;letter-spacing:.2px}
-.btn{border:0;background:var(--brand);color:#0f1112;padding:12px 18px;border-radius:999px;font-weight:700;cursor:pointer;transition:transform .08s,filter .15s}
-.btn:hover{filter:brightness(.95)}
-.btn:active{transform:translateY(1px)}
-.btn-secondary{background:#26292C;color:var(--text)}
-.btn-secondary:hover{background:#2E3236}
-.avatar{width:32px;height:32px;border-radius:50%;background:#2b2b2e;object-fit:cover}
-
-/* consent card */
-.consent-wrap{min-height:calc(100vh - 64px);display:grid;place-items:center;padding:32px 16px}
-.consent{width:560px;max-width:100%;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px 24px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.consent h1{margin:0 0 16px;font-size:28px;font-weight:700;letter-spacing:.1px}
-.appname{color:var(--brand);font-size:32px;font-weight:800;margin-bottom:6px;letter-spacing:.2px}
-.userline{color:var(--muted);margin:2px 0 18px}
-.linkish{color:#a3e3b7;text-decoration:underline;cursor:pointer}
-.permissions h3{margin:18px 0 8px;font-size:18px}
-.perm{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 0}
-.perm-title{font-weight:600}
-.perm-desc{color:var(--muted);font-size:14px;margin-top:4px}
-.consent-actions{display:grid;gap:12px;margin-top:24px}
-.consent-primary{height:48px;border-radius:999px;font-size:16px}
-.consent-secondary{text-align:center;color:var(--muted);font-weight:600}
-
-/* топ треков */
-.grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:10px}
-@media (min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{display:flex;align-items:center;gap:14px;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:1px solid var(--line);transition:transform .15s,background .2s,border-color .2s}
-.card:hover{transform:translateY(-2px);background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border-color:#2f2f33}
-.card .idx{width:24px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
-.cover{width:68px;height:68px;border-radius:10px;object-fit:cover;background:#1b1b1e}
-.title{font-weight:600;letter-spacing:.1px}
-.meta{color:var(--muted);font-size:14px;margin-top:2px}
-.dur{color:var(--muted);font-size:13px;margin-left:auto;margin-right:10px}
-.preview{height:34px}
-
-.footer{text-align:center;color:var(--muted);font-size:12px;padding:36px 0 60px}
-.skeleton{position:relative;overflow:hidden;background:#1a1a1d;border:1px solid var(--line);border-radius:14px;height:92px}
-.skeleton::after{content:\"\";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,.07) 50%,rgba(255,255,255,.02) 100%);transform:translateX(-100%);animation:shine 1.2s infinite}
-@keyframes shine{to{transform:translateX(100%)}}
-`;
-
+function msToMinSec(ms) {
+  const m = Math.floor(ms / 60000);
+  const s = Math.floor((ms % 60000) / 1000).toString().padStart(2, "0");
+  return `${m}:${s}`;
+}
